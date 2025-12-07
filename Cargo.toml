@@ -1,0 +1,60 @@
+[package]
+name = "sozin"
+version = "2.0.0"
+edition = "2021"
+authors = ["therealsylva"]
+description = "Professional Network Interface Manager - WiFi scanning, monitor mode, and network discovery"
+license = "MIT"
+repository = "https://github.com/therealsylva/sozin"
+keywords = ["network", "wifi", "security", "monitor-mode", "wireless"]
+categories = ["command-line-utilities", "network-programming"]
+
+[dependencies]
+# Async runtime
+tokio = { version = "1.35", features = ["full"] }
+
+# TUI framework
+ratatui = "0.28"
+crossterm = "0.28"
+
+# CLI and colors
+colored = "2.1"
+clap = { version = "4.4", features = ["derive"] }
+
+# Async utilities
+futures = "0.3"
+
+# System and network
+nix = { version = "0.27", features = ["net", "ioctl", "user"] }
+libc = "0.2"
+
+# Serialization
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+
+# Error handling
+anyhow = "1.0"
+thiserror = "1.0"
+
+# Logging
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter"] }
+
+# Progress and spinners
+indicatif = "0.17"
+
+# Time
+chrono = { version = "0.4", features = ["serde"] }
+
+# Random
+rand = "0.8"
+
+[[bin]]
+name = "sozin"
+path = "src/main.rs"
+
+[profile.release]
+opt-level = 3
+lto = true
+codegen-units = 1
+strip = true
