@@ -12,11 +12,11 @@
      ╚══════╝ ╚═════╝ ╚══════╝╚═╝╚═╝  ╚═══╝
 ```
 
-**⚠️ WARNING: This tool requires root privileges and is for authorized security testing only.**
+**WARNING: This tool requires root privileges and is for authorized security testing only.**
 
 SOZIN is a professional network interface management tool built with Rust for maximum performance. It provides WiFi scanning, monitor mode management, MAC spoofing, and network discovery capabilities through both an interactive TUI and CLI.
 
-## 🎯 Features
+## Features
 
 ### Core Capabilities
 - **Interactive TUI**: Beautiful terminal user interface with real-time updates
@@ -31,7 +31,7 @@ SOZIN is a professional network interface management tool built with Rust for ma
 - **Multiple Output Formats**: JSON support for scripting and automation
 - **Cross-platform**: Works on any Linux system with standard networking tools
 
-## 🚀 Installation
+## Installation
 
 ### Prerequisites
 - Rust 1.70 or higher
@@ -51,7 +51,7 @@ cargo build --release
 sudo cp target/release/sozin /usr/local/bin/
 ```
 
-## 📖 Usage
+## Usage
 
 ### Interactive TUI Mode (Default)
 ```bash
@@ -122,7 +122,7 @@ sudo sozin rename -i wlan0 -n wifi0
 sudo sozin restart
 ```
 
-## ⌨️ TUI Keyboard Shortcuts
+## TUI Keyboard Shortcuts
 
 ### Navigation
 | Key | Action |
@@ -153,7 +153,7 @@ sudo sozin restart
 |-----|--------|
 | `n` | Restart NetworkManager |
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 sozin/
@@ -167,7 +167,7 @@ sozin/
 └── README.md            # This file
 ```
 
-## 🔧 Technical Details
+## Technical Details
 
 ### Dependencies
 - **tokio**: Async runtime for high-performance operations
@@ -182,7 +182,7 @@ sozin/
 - **Modular Design**: Each component (network, scanner, ui) is independent
 - **Error Handling**: Comprehensive error handling with anyhow/thiserror
 
-## 🛡️ Security Considerations
+## Security Considerations
 
 ### Ethical Use
 - **Authorization Required**: Only use on networks you own or have permission to test
@@ -194,7 +194,7 @@ sozin/
 - Monitor and log all testing activities
 - Respect network policies and regulations
 
-## 📊 Output Formats
+## Output Formats
 
 ### JSON Interface List
 ```json
@@ -226,7 +226,7 @@ sozin/
 ]
 ```
 
-## 🤝 Contributing
+## Contributing
 
 Contributions are welcome! Please read our contributing guidelines before submitting PRs.
 
@@ -236,15 +236,15 @@ Contributions are welcome! Please read our contributing guidelines before submit
 4. Add tests if applicable
 5. Submit a pull request
 
-## 📝 License
+## License
 
 This project is licensed under the MIT License - see the LICENSE file for details.
 
-## ⚠️ Disclaimer
+## Disclaimer
 
 This tool is provided for educational and authorized security testing purposes only. The authors are not responsible for any misuse or damage caused by this tool. Users are solely responsible for ensuring they have proper authorization before testing any systems.
 
-## 📞 Support
+## Support
 
 For issues, questions, or contributions:
 - Create an issue on GitHub
@@ -252,4 +252,4 @@ For issues, questions, or contributions:
 
 ---
 
-**Built with ❤️ using Rust for maximum performance and reliability.**
+**Built with Rust for maximum performance and reliability.**
