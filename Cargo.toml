@@ -1,6 +1,6 @@
 [package]
 name = "sozin"
-version = "2.0.0"
+version = "2.1.0"
 edition = "2021"
 authors = ["therealsylva"]
 description = "Professional Network Interface Manager - WiFi scanning, monitor mode, and network discovery"

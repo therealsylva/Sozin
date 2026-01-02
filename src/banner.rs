@@ -14,7 +14,7 @@ pub fn print_banner() {
     
     {} Professional Network Interface Manager
     {} WiFi Scanning & Network Discovery
-    {} Version 2.0.0
+    {} Version 2.1.0
     {} by therealsylva
     
     {} Requires root privileges for network operations
@@ -35,7 +35,7 @@ pub fn print_banner() {
 pub fn print_mini_banner() {
     println!(
         "{}",
-        "  SOZIN v2.0.0 | Network Interface Manager".bright_cyan()
+        "  SOZIN v2.1.0 | Network Interface Manager".bright_cyan()
     );
     println!("{}", "═".repeat(50).bright_black());
 }

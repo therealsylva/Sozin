@@ -192,16 +192,19 @@ impl WifiScanner {
         }
     }
 
+    #[allow(dead_code)]
     /// Get cached networks
     pub fn get_cached_networks(&self) -> Vec<WifiNetwork> {
         self.networks.values().cloned().collect()
     }
 
+    #[allow(dead_code)]
     /// Clear cached networks
     pub fn clear_cache(&mut self) {
         self.networks.clear();
     }
 
+    #[allow(dead_code)]
     /// Get network by BSSID
     pub fn get_network(&self, bssid: &str) -> Option<&WifiNetwork> {
         self.networks.get(bssid)
@@ -260,12 +263,14 @@ impl WifiNetworkBuilder {
     }
 }
 
+#[allow(dead_code)]
 /// Continuous scanner for real-time monitoring
 pub struct ContinuousScanner {
     scanner: WifiScanner,
     scan_interval: Duration,
 }
 
+#[allow(dead_code)]
 impl ContinuousScanner {
     pub fn new(interface: &str, scan_interval_secs: u64) -> Self {
         Self {

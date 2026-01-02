@@ -10,7 +10,7 @@ use colored::*;
 #[derive(Parser)]
 #[command(name = "sozin")]
 #[command(author = "therealsylva")]
-#[command(version = "2.0.0")]
+#[command(version = "2.1.0")]
 #[command(about = "Professional Network Interface Manager - WiFi scanning, monitor mode, and network discovery")]
 #[command(long_about = None)]
 struct Cli {

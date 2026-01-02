@@ -430,6 +430,7 @@ impl NetworkManager {
         )
     }
 
+    #[allow(dead_code)]
     /// Set wireless channel
     pub async fn set_channel(interface: &str, channel: u32) -> Result<()> {
         let output = AsyncCommand::new("iw")

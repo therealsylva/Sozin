@@ -24,7 +24,6 @@ pub struct App {
     pub interface_state: ListState,
     pub networks: Vec<WifiNetwork>,
     pub network_state: TableState,
-    pub selected_interface: Option<String>,
     pub status_message: String,
     pub show_help: bool,
     pub input_mode: InputMode,
@@ -35,7 +34,9 @@ pub struct App {
 pub enum InputMode {
     Normal,
     Rename,
+    #[allow(dead_code)]
     MacInput,
+    #[allow(dead_code)]
     ChannelInput,
 }
 
@@ -48,7 +49,6 @@ impl Default for App {
             interface_state: ListState::default(),
             networks: Vec::new(),
             network_state: TableState::default(),
-            selected_interface: None,
             status_message: String::new(),
             show_help: false,
             input_mode: InputMode::Normal,
@@ -431,7 +431,7 @@ fn ui(f: &mut Frame, app: &App) {
     let header = Paragraph::new(vec![
         Line::from(vec![
             Span::styled("  SOZIN ", Style::default().fg(Color::Cyan).add_modifier(Modifier::BOLD)),
-            Span::styled("v2.0.0", Style::default().fg(Color::DarkGray)),
+            Span::styled("v2.1.0", Style::default().fg(Color::DarkGray)),
             Span::raw(" │ "),
             Span::styled("Professional Network Interface Manager", Style::default().fg(Color::White)),
         ]),
@@ -597,7 +597,9 @@ fn render_interfaces(f: &mut Frame, app: &App, area: Rect) {
                 Span::styled("s", Style::default().fg(Color::Cyan)),
                 Span::raw(" Scan WiFi  "),
                 Span::styled("M", Style::default().fg(Color::Cyan)),
-                Span::raw(" Spoof MAC"),
+                Span::raw(" Spoof MAC  "),
+                Span::styled("R", Style::default().fg(Color::Cyan)),
+                Span::raw(" Rename"),
             ]),
         ]
     } else {
@@ -695,7 +697,7 @@ fn render_info(f: &mut Frame, _app: &App, area: Rect) {
         Line::from(""),
         Line::from(vec![
             Span::styled("  Version: ", Style::default().fg(Color::DarkGray)),
-            Span::styled("2.0.0", Style::default().fg(Color::White)),
+            Span::styled("2.1.0", Style::default().fg(Color::White)),
         ]),
         Line::from(vec![
             Span::styled("  Author: ", Style::default().fg(Color::DarkGray)),
