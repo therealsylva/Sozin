@@ -110,6 +110,12 @@ sudo sozin mac -i wlan0
 sudo sozin mac -i wlan0 -a 00:11:22:33:44:55
 ```
 
+#### Interface Rename
+```bash
+# Rename interface
+sudo sozin rename -i wlan0 -n wifi0
+```
+
 #### NetworkManager
 ```bash
 # Restart NetworkManager
@@ -133,6 +139,7 @@ sudo sozin restart
 | `m` | Toggle monitor mode |
 | `u` | Bring interface up |
 | `d` | Bring interface down |
+| `R` | Rename interface |
 | `M` | Spoof MAC address (random) |
 | `r` | Refresh interfaces |
 

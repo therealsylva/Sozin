@@ -348,7 +348,7 @@ async fn run_app<B: ratatui::backend::Backend>(
                                     let name = iface.name.clone();
                                     let new_mac = NetworkManager::generate_random_mac();
                                     app.status_message = format!("Spoofing MAC on {} to {}...", name, new_mac);
-                                    
+
                                     match NetworkManager::spoof_mac(&name, &new_mac).await {
                                         Ok(_) => {
                                             app.status_message = format!("MAC changed to {}", new_mac);
@@ -360,12 +360,39 @@ async fn run_app<B: ratatui::backend::Backend>(
                                     }
                                 }
                             }
+                            KeyCode::Char('R') => {
+                                // Enter rename mode
+                                let iface_name = app.selected_interface().map(|i| i.name.clone());
+                                if let Some(name) = iface_name {
+                                    app.input_mode = InputMode::Rename;
+                                    app.input_buffer = name.clone();
+                                    app.status_message = format!("Enter new name for {} (Press Enter to confirm)", name);
+                                }
+                            }
                             _ => {}
                         },
                         InputMode::Rename | InputMode::MacInput | InputMode::ChannelInput => {
                             match key.code {
                                 KeyCode::Enter => {
                                     // Process input
+                                    if app.input_mode == InputMode::Rename {
+                                        if let Some(iface) = app.selected_interface() {
+                                            let old_name = iface.name.clone();
+                                            let new_name = app.input_buffer.clone();
+
+                                            if !new_name.is_empty() && new_name != old_name {
+                                                match NetworkManager::rename_interface(&old_name, &new_name).await {
+                                                    Ok(_) => {
+                                                        app.status_message = format!("Renamed {} to {}", old_name, new_name);
+                                                        app.refresh_interfaces();
+                                                    }
+                                                    Err(e) => {
+                                                        app.status_message = format!("Error: {}", e);
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
                                     app.input_mode = InputMode::Normal;
                                     app.input_buffer.clear();
                                 }
@@ -450,6 +477,11 @@ fn ui(f: &mut Frame, app: &App) {
     // Help popup
     if app.show_help {
         render_help_popup(f);
+    }
+
+    // Input mode popup
+    if app.input_mode != InputMode::Normal {
+        render_input_popup(f, app);
     }
 }
 
@@ -719,6 +751,7 @@ fn render_help_popup(f: &mut Frame) {
         Line::from("  m              Toggle monitor mode"),
         Line::from("  u              Bring interface up"),
         Line::from("  d              Bring interface down"),
+        Line::from("  R              Rename interface"),
         Line::from("  M              Spoof MAC address"),
         Line::from("  r              Refresh interfaces"),
         Line::from(""),
@@ -762,4 +795,39 @@ fn centered_rect(percent_x: u16, percent_y: u16, r: Rect) -> Rect {
             Constraint::Percentage((100 - percent_x) / 2),
         ])
         .split(popup_layout[1])[1]
+}
+
+fn render_input_popup(f: &mut Frame, app: &App) {
+    let area = centered_rect(50, 20, f.area());
+    f.render_widget(Clear, area);
+
+    let title = match app.input_mode {
+        InputMode::Rename => "Rename Interface",
+        _ => "Input",
+    };
+
+    let input_text = vec![
+        Line::from(vec![
+            Span::styled(title, Style::default().fg(Color::Cyan).add_modifier(Modifier::BOLD)),
+        ]),
+        Line::from(""),
+        Line::from(vec![
+            Span::raw("> "),
+            Span::styled(&app.input_buffer, Style::default().fg(Color::White)),
+        ]),
+        Line::from(""),
+        Line::from(vec![
+            Span::styled("Press Enter to confirm, Esc to cancel", Style::default().fg(Color::DarkGray)),
+        ]),
+    ];
+
+    let input = Paragraph::new(input_text)
+        .block(
+            Block::default()
+                .borders(Borders::ALL)
+                .border_style(Style::default().fg(Color::Cyan)),
+        )
+        .style(Style::default().fg(Color::White));
+
+    f.render_widget(input, area);
 }

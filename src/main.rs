@@ -73,12 +73,23 @@ enum Commands {
         /// Interface name
         #[arg(short, long)]
         interface: String,
-        
+
         /// New MAC address (random if not specified)
         #[arg(short, long)]
         address: Option<String>,
     },
-    
+
+    /// Rename network interface
+    Rename {
+        /// Interface name
+        #[arg(short, long)]
+        interface: String,
+
+        /// New interface name
+        #[arg(short, long)]
+        new_name: String,
+    },
+
     /// Restart NetworkManager
     Restart,
 }
@@ -223,7 +234,14 @@ async fn main() -> Result<()> {
             network::NetworkManager::spoof_mac(&interface, &new_mac).await?;
             println!("  {} MAC address changed to {}", "✓".green(), new_mac.green());
         }
-        
+
+        Some(Commands::Rename { interface, new_name }) => {
+            banner::print_mini_banner();
+            println!("  {} Renaming {} to {}...", "»".cyan(), interface.bold(), new_name.yellow());
+            network::NetworkManager::rename_interface(&interface, &new_name).await?;
+            println!("  {} Interface renamed from {} to {}", "✓".green(), interface, new_name.green());
+        }
+
         Some(Commands::Restart) => {
             banner::print_mini_banner();
             println!("  {} Restarting NetworkManager...", "»".cyan());
